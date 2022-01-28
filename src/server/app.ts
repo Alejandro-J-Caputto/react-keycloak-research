@@ -1,8 +1,10 @@
 import express from 'express'
-import { Page } from './renderer'
+
+import page from './renderer'
+
 const app = express()
 app.get('/', (req, res) => {
-  res.send(Page)
+  res.send(page)
 })
 
 app.listen(3000, () => {
