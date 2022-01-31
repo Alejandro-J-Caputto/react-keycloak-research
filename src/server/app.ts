@@ -1,10 +1,12 @@
 import express from 'express'
 
-import page from './renderer'
+import initialPageRenderer from './renderer'
 
 const app = express()
+app.use(express.static('public'))
+
 app.get('/', (req, res) => {
-  res.send(page)
+  res.send(initialPageRenderer())
 })
 
 app.listen(3000, () => {

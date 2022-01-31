@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./build/bundle.js",
-    "build:dev": "webpack --watch"
+    "dev": "npm-run-all --parallel dev:*",
+    "dev:server": "nodemon ./build/bundle.js",
+    "dev:build-server": "webpack --config webpack.server.js --watch",
+    "dev:build-client": "webpack --config webpack.client.js --watch"
   },
   "author": "Alejandro Caputto",
   "license": "ISC",

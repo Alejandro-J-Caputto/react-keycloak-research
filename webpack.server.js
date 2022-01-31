@@ -1,8 +1,15 @@
 // import path from 'path'
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
+
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const nodeExternals = require('webpack-node-externals')
-module.exports = {
+const NodeExternals = require('webpack-node-externals')
+const { merge } = require('webpack-merge')
+
+const commonWebpackConfig = require('./webpack.common')
+
+const clientConfig = {
   target: 'node',
   entry: './src/server/app.ts',
   mode: 'development',
@@ -46,6 +53,8 @@ module.exports = {
       },
     ],
   },
-  externals: [new nodeExternals()],
+  externals: [new NodeExternals()],
   plugins: [new MiniCssExtractPlugin()],
 }
+
+module.exports = merge(commonWebpackConfig, clientConfig)
