@@ -1,9 +1,24 @@
+import React, { useContext } from 'react'
 import { renderToString } from 'react-dom/server'
+import { StaticRouter } from 'react-router-dom/server'
 
-import Home from '../isomorphic/components/Home'
+import Routes from '../isomorphic/routes'
 
-export default () => {
-  const page = renderToString(<Home />)
+const ServerStoreCtx = React.createContext({})
+const RouterCtx = React.createContext({
+  context: {},
+})
+
+export default function Page(path: string) {
+  const page = renderToString(
+    <ServerStoreCtx.Provider value={{}}>
+      <RouterCtx.Provider value={{ context: {} }}>
+        <StaticRouter location={path}>
+          <Routes />
+        </StaticRouter>
+      </RouterCtx.Provider>
+    </ServerStoreCtx.Provider>
+  )
 
   return `
     <!DOCTYPE html>
