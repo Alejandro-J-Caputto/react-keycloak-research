@@ -1,10 +1,10 @@
+/* eslint-disable consistent-return */
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { matchRoutes, renderMatches } from 'react-router-dom'
 import { StaticRouter } from 'react-router-dom/server'
 
-import Home from '../isomorphic/components/Home'
-import { AppRouter, RoutesArr } from '../isomorphic/routes'
+import { RoutesArr } from '../isomorphic/routes'
 
 const ServerStoreCtx = React.createContext({})
 const RouterCtx = React.createContext({
@@ -13,8 +13,7 @@ const RouterCtx = React.createContext({
 
 export default function Page(path: string) {
   const matches = matchRoutes(RoutesArr, path)
-  console.log(matchRoutes(RoutesArr, path))
-  console.log(renderMatches(matches))
+  matches?.map(({ route }) => (route.loadData ? route.loadData() : null))
   const page = renderToString(
     <ServerStoreCtx.Provider value={{}}>
       <RouterCtx.Provider value={{ context: {} }}>

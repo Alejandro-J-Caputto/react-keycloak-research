@@ -26,3 +26,6 @@ export default function Home() {
     </>
   )
 }
+export function loadData() {
+  console.log('Loading data...')
+}

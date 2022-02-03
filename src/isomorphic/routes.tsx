@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRoutes } from 'react-router-dom'
 
-import Home from './components/Home'
+import Home, { loadData } from './components/Home'
 
 export const RoutesArr = [
   {
@@ -11,6 +11,7 @@ export const RoutesArr = [
   {
     path: '/categories',
     element: <Home />,
+    loadData,
   },
 ]
 export const AppRouter = () => {

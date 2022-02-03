@@ -7,7 +7,7 @@ const app = express()
 app.use(express.static('public'))
 
 app.get('*', (req, res) => {
-  res.send(initialPageRenderer(req.path))
+  res.send(initialPageRenderer(req.url))
 })
 
 app.listen(3000, () => {
