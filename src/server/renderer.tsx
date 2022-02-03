@@ -1,21 +1,24 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { renderToString } from 'react-dom/server'
+import { matchRoutes, renderMatches } from 'react-router-dom'
 import { StaticRouter } from 'react-router-dom/server'
 
-import { AppRouter } from '../isomorphic/routes'
+import Home from '../isomorphic/components/Home'
+import { AppRouter, RoutesArr } from '../isomorphic/routes'
 
 const ServerStoreCtx = React.createContext({})
 const RouterCtx = React.createContext({
   context: {},
 })
-console.log(AppRouter)
+
 export default function Page(path: string) {
+  const matches = matchRoutes(RoutesArr, path)
+  console.log(matchRoutes(RoutesArr, path))
+  console.log(renderMatches(matches))
   const page = renderToString(
     <ServerStoreCtx.Provider value={{}}>
       <RouterCtx.Provider value={{ context: {} }}>
-        <StaticRouter location={path}>
-          <AppRouter />
-        </StaticRouter>
+        <StaticRouter location={path}>{renderMatches(matches)}</StaticRouter>
       </RouterCtx.Provider>
     </ServerStoreCtx.Provider>
   )
