@@ -12,11 +12,12 @@ const RouterCtx = React.createContext({
 })
 
 export default function Page(path: string) {
+  const appStore = { patata: 'patata' }
   const matches = matchRoutes(RoutesArr, path)
-  matches?.map(({ route }) => (route.loadData ? route.loadData() : null))
   const page = renderToString(
-    <ServerStoreCtx.Provider value={{}}>
+    <ServerStoreCtx.Provider value={appStore}>
       <RouterCtx.Provider value={{ context: {} }}>
+        {matches?.map(({ route }) => (route.loadData ? route.loadData(appStore) : null))}
         <StaticRouter location={path}>{renderMatches(matches)}</StaticRouter>
       </RouterCtx.Provider>
     </ServerStoreCtx.Provider>

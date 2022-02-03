@@ -26,6 +26,7 @@ export default function Home() {
     </>
   )
 }
-export function loadData() {
+export function loadData(appStore: { appStore: Record<string, unknown> }) {
+  console.log(appStore)
   console.log('Loading data...')
 }

@@ -1,17 +1,9 @@
 import 'regenerator-runtime'
 import React from 'react'
 import ReactDom from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
 
-import { AppRouter } from '../isomorphic/routes'
+// eslint-disable-next-line import/no-cycle
 
-const ClientStore = React.createContext({})
+import App from '../isomorphic/components/Home/App'
 
-ReactDom.hydrate(
-  <ClientStore.Provider value={{}}>
-    <BrowserRouter>
-      <AppRouter />
-    </BrowserRouter>
-  </ClientStore.Provider>,
-  document.querySelector('#root')
-)
+ReactDom.hydrate(<App />, document.querySelector('#root'))
