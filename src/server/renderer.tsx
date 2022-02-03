@@ -1,26 +1,27 @@
 /* eslint-disable consistent-return */
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { matchRoutes, renderMatches } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { renderMatches, RouteMatch } from 'react-router-dom'
 import { StaticRouter } from 'react-router-dom/server'
+import { AnyAction, EmptyObject, Store } from 'redux'
 
-import { RoutesArr } from '../isomorphic/routes'
-
-const ServerStoreCtx = React.createContext({})
+export const ServerStoreCtx = React.createContext({})
 const RouterCtx = React.createContext({
   context: {},
 })
 
-export default function Page(path: string) {
-  const appStore = { patata: 'patata' }
-  const matches = matchRoutes(RoutesArr, path)
+export default function Page(
+  path: string,
+  matches: RouteMatch<string>[] | null,
+  appStore: Store<EmptyObject, AnyAction>
+) {
   const page = renderToString(
-    <ServerStoreCtx.Provider value={appStore}>
+    <Provider store={appStore}>
       <RouterCtx.Provider value={{ context: {} }}>
-        {matches?.map(({ route }) => (route.loadData ? route.loadData(appStore) : null))}
         <StaticRouter location={path}>{renderMatches(matches)}</StaticRouter>
       </RouterCtx.Provider>
-    </ServerStoreCtx.Provider>
+    </Provider>
   )
 
   return `

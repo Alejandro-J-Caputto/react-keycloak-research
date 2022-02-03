@@ -3,13 +3,9 @@ import React from 'react'
 
 export default function Home() {
   const [categories, setCategories] = React.useState<string[]>([])
-  React.useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await axios.get<string[]>(`https://api.chucknorris.io/jokes/categories`)
-      setCategories(response.data)
-    }
-    fetchCategories()
-  }, [])
+  // React.useEffect(() => {
+  //   setCategories(context.categories)
+  // }, [])
   return (
     <>
       <h1>Hello World</h1>
