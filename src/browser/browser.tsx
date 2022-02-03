@@ -4,6 +4,6 @@ import ReactDom from 'react-dom'
 
 // eslint-disable-next-line import/no-cycle
 
-import App from '../isomorphic/components/Home/App'
+import App from '../isomorphic/App'
 
 ReactDom.hydrate(<App />, document.querySelector('#root'))
