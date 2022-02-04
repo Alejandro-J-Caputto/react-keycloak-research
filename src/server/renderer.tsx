@@ -35,6 +35,9 @@ export default function Page(
           </head>
           <body>
           <div id="root">${page}</div>
+          <script>
+            window.INITIAL_STATE=${JSON.stringify(appStore.getState())}
+          </script>
           <script type="module" src='bundle.js'></script>
         </body>
     </html>`
