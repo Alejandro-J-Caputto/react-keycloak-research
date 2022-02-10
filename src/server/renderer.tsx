@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { renderMatches, RouteMatch } from 'react-router-dom'
 import { StaticRouter } from 'react-router-dom/server'
 import { AnyAction, EmptyObject, Store } from 'redux'
+import serialize from 'serialize-javascript'
 
 export const ServerStoreCtx = React.createContext({})
 const RouterCtx = React.createContext({
@@ -31,12 +32,12 @@ export default function Page(
           <meta charset="UTF-8" />
           <meta http-equiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>Document</title>
+          <title>React-Keycloak</title>
           </head>
           <body>
           <div id="root">${page}</div>
           <script>
-            window.INITIAL_STATE=${JSON.stringify(appStore.getState())}
+            window.INITIAL_STATE=${serialize(appStore.getState(), { space: 2, isJSON: true })}
           </script>
           <script type="module" src='bundle.js'></script>
         </body>
